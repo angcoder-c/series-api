@@ -45,15 +45,3 @@ class SeriesRead(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-class ExampleCreate(BaseModel):
-    name: str
-
-
-class ExampleRead(BaseModel):
-    id: int
-    name: str
-
-    class Config:
-        orm_mode = True
