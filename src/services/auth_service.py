@@ -4,6 +4,7 @@ import hmac
 import secrets
 from datetime import datetime, timedelta
 from src.services.base_service import BaseService
+from src.utils.jwt import create_access_token, decode_access_token
 
 
 class AuthService(BaseService):
@@ -44,5 +45,5 @@ class AuthService(BaseService):
         if not user or not self.verify_password(password, user["password_hash"]):
             return {"error": "Invalid credentials"}
         
-        # TODO: generar JWT token
-        return {"id": user["id"], "email": user["email"], "token": "jwt_placeholder"}
+        token = create_access_token({"sub": str(user["id"]), "email": user["email"]})
+        return {"id": user["id"], "email": user["email"], "token": token}
