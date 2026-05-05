@@ -9,6 +9,15 @@ from datetime import datetime
 
 
 @dataclass
+class User:
+    """Entidad Usuario."""
+    id: Optional[int] = None
+    email: str = ""
+    password_hash: str = ""
+    created_at: Optional[datetime] = None
+
+
+@dataclass
 class ExampleEntity:
     """Ejemplo de entidad de dominio.
 
