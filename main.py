@@ -1,11 +1,13 @@
 """Aplicación FastAPI."""
 from fastapi import FastAPI
 from src.api.auth_router import router as auth_router
+from src.api.series_router import router as series_router
 from src.api.routers import router as example_router
 
 app = FastAPI(title="Series API")
 
 app.include_router(auth_router)
+app.include_router(series_router)
 app.include_router(example_router)
 
 

@@ -9,6 +9,16 @@ from datetime import datetime
 
 
 @dataclass
+class Series:
+    """Entidad Serie."""
+    id: Optional[int] = None
+    title: str = ""
+    description: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+
+@dataclass
 class User:
     """Entidad Usuario."""
     id: Optional[int] = None

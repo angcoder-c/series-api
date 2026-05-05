@@ -28,6 +28,25 @@ class AuthToken(BaseModel):
     token_type: str
 
 
+class SeriesCreate(BaseModel):
+    title: str
+    description: str | None = None
+
+
+class SeriesUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+
+
+class SeriesRead(BaseModel):
+    id: int
+    title: str
+    description: str | None = None
+
+    class Config:
+        orm_mode = True
+
+
 class ExampleCreate(BaseModel):
     name: str
 
