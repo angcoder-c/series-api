@@ -1,18 +1,36 @@
-"""Interfaces y contratos para repositorios (CRUD).
+"""Base repository interface para operaciones CRUD con psycopg2.
 
-Usa estos protocolos/abstracciones para implementar adaptadores concretos.
+Implementa adaptadores concretos heredando de esta clase.
 """
-from typing import Generic, TypeVar, Protocol, Optional
-from sqlalchemy.ext.asyncio import AsyncSession
+from typing import List, Optional, Any
+from abc import ABC, abstractmethod
+import psycopg2.extras
 
-T = TypeVar("T")
 
+class BaseRepository(ABC):
+    """Interfaz base para repositorios (CRUD con psycopg2)."""
 
-class Repository(Protocol, Generic[T]):
-    async def create(self, db: AsyncSession, obj_in) -> T: ...
+    @abstractmethod
+    async def create(self, conn, obj_in: dict) -> dict:
+        """Crear un nuevo registro."""
+        pass
 
-    async def get(self, db: AsyncSession, id: int) -> Optional[T]: ...
+    @abstractmethod
+    async def get(self, conn, id: int) -> Optional[dict]:
+        """Obtener un registro por ID."""
+        pass
 
-    async def update(self, db: AsyncSession, id: int, obj_in) -> T: ...
+    @abstractmethod
+    async def get_all(self, conn, skip: int = 0, limit: int = 10) -> List[dict]:
+        """Obtener todos los registros con paginación."""
+        pass
 
-    async def delete(self, db: AsyncSession, id: int) -> None: ...
+    @abstractmethod
+    async def update(self, conn, id: int, obj_in: dict) -> Optional[dict]:
+        """Actualizar un registro."""
+        pass
+
+    @abstractmethod
+    async def delete(self, conn, id: int) -> bool:
+        """Eliminar un registro."""
+        pass

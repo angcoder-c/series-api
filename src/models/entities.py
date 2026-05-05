@@ -1,17 +1,20 @@
-"""ORM entity examples and placeholders.
+"""Model definitions for ORM entities using dataclasses.
 
-Define your domain entities here as SQLAlchemy declarative models.
+Estos modelos representan la estructura de datos del dominio.
+Usa dataclasses para mantener simplicidad (sin ORM).
 """
-from sqlalchemy import Column, Integer, String
-from src.db import Base
+from dataclasses import dataclass
+from typing import Optional
+from datetime import datetime
 
 
-class ExampleEntity(Base):
-    """Ejemplo de entidad.
+@dataclass
+class ExampleEntity:
+    """Ejemplo de entidad de dominio.
 
     Reemplaza o añade entidades reales según el dominio.
     """
-    __tablename__ = "example"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
+    id: Optional[int] = None
+    name: str = ""
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
