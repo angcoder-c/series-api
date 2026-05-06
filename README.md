@@ -1,5 +1,10 @@
 # series-api
 
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.136.1-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![psycopg2](https://img.shields.io/badge/psycopg2-binary-important)](https://www.psycopg.org/docs/)
+
 API en FastAPI con PostgreSQL y `psycopg2`.
 
 ## Requisitos
@@ -40,6 +45,12 @@ uvicorn main:app --reload
 - `POST /series`
 - `PUT /series/{series_id}`
 - `DELETE /series/{series_id}`
+
+## Documentación
+
+- [Endpoints](docs/endpoints.md)
+- [Base de datos](docs/db.md)
+- [Guía del entorno Docker](../README.md)
 
 ## Notas
 
