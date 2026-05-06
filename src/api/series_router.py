@@ -1,5 +1,6 @@
 """Endpoints CRUD para Series."""
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, File
+import cloudinary.uploader
 from src.db import get_connection, return_connection
 from src.repositories.series_repository import SeriesRepository
 from src.schemas.dto import SeriesCreate, SeriesUpdate, SeriesRead
@@ -39,6 +40,18 @@ async def create_series(payload: SeriesCreate):
         return await series_service.create(conn, payload.model_dump())
     finally:
         return_connection(conn)
+
+
+@router.post("/upload-image")
+async def upload_series_image(file: UploadFile = File(...)):
+    try:
+        result = cloudinary.uploader.upload(file.file, folder="series-app")
+        return {
+            "image_url": result.get("secure_url"),
+            "image_public_id": result.get("public_id")
+        }
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Image upload failed: {exc}")
 
 
 @router.put("/{series_id}", response_model=SeriesRead)

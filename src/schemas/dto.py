@@ -2,7 +2,9 @@
 
 Contiene esquemas para validación de entrada/salida.
 """
-from pydantic import BaseModel, EmailStr
+from datetime import datetime
+
+from pydantic import BaseModel, EmailStr, Field
 
 
 class UserSignup(BaseModel):
@@ -31,17 +33,58 @@ class AuthToken(BaseModel):
 class SeriesCreate(BaseModel):
     title: str
     description: str | None = None
+    image_url: str | None = None
+    image_public_id: str | None = None
+    release_year: int | None = None
+    status: str | None = None
+    total_seasons: int | None = None
+    total_episodes: int | None = None
 
 
 class SeriesUpdate(BaseModel):
     title: str | None = None
     description: str | None = None
+    image_url: str | None = None
+    image_public_id: str | None = None
+    release_year: int | None = None
+    status: str | None = None
+    total_seasons: int | None = None
+    total_episodes: int | None = None
 
 
 class SeriesRead(BaseModel):
     id: int
     title: str
     description: str | None = None
+    image_url: str | None = None
+    image_public_id: str | None = None
+    release_year: int | None = None
+    status: str | None = None
+    total_seasons: int | None = None
+    total_episodes: int | None = None
 
     class Config:
         orm_mode = True
+
+
+class RatingCreate(BaseModel):
+    series_id: int
+    score: int = Field(ge=1, le=5)
+    comment: str | None = None
+
+
+class RatingRead(BaseModel):
+    id: int
+    series_id: int
+    user_id: int
+    score: int
+    comment: str | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
+
+
+class RatingSummary(BaseModel):
+    series_id: int
+    average_score: float | None = None
+    ratings_count: int = 0
+    my_rating: RatingRead | None = None
