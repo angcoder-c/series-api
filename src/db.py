@@ -1,7 +1,3 @@
-"""Database connection pool with psycopg2 for PostgreSQL.
-
-Replace DATABASE_URL with real credentials or load from env/config.
-"""
 import psycopg2
 from psycopg2 import pool
 import os
